@@ -1,0 +1,10 @@
+com/fatima/IdNode.class
+com/fatima/Token.class
+com/fatima/ApplicationNode.class
+com/fatima/App.class
+com/fatima/LetNode.class
+com/fatima/Node.class
+com/fatima/Parser.class
+com/fatima/Scanner.class
+com/fatima/LiteralNode.class
+com/fatima/TokenType.class
