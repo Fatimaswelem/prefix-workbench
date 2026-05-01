@@ -56,7 +56,8 @@ public class Scanner {
                 } else if (Character.isLetter(c)) {
                     identifier();
                 } else {
-                    System.err.println("Line " + line + ": Lexical Error - Unexpected character: " + c);
+                    // Updated to throw exception for high-visibility catching[cite: 46]
+                    throw new RuntimeException("Lexical Error at Line " + line + ": Unexpected character: " + c);
                 }
                 break;
         }
@@ -77,8 +78,14 @@ public class Scanner {
 
     private void number() {
         while (Character.isDigit(peek())) advance();
-        int value = Integer.parseInt(source.substring(start, current));
-        addToken(TokenType.NUMBER, value);
+        String text = source.substring(start, current);
+        try {
+            int value = Integer.parseInt(text);
+            addToken(TokenType.NUMBER, value);
+        } catch (NumberFormatException e) {
+            // Updated for specific overflow error message
+            throw new RuntimeException("Lexical Error: Number '" + text + "' is too large for 32-bit Integer.");
+        }
     }
 
     private boolean isAtEnd() { return current >= source.length(); }

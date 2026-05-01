@@ -35,11 +35,16 @@ public class Parser {
 
     private Node list() {
         if (match(TokenType.LET)) {
-            Token id = consume(TokenType.IDENTIFIER, "Expect variable name after 'let'.");
-            Node value = expression();
-            consume(TokenType.RPAREN, "Expect ')' after let binding.");
-            return new LetNode(id.lexeme, value);
-        }
+                Token idToken = advance(); // Get next token for validation
+                if (idToken.type != TokenType.IDENTIFIER) {
+                    // Updated for specific Keyword Reservation error message
+                    throw error(idToken, "Keyword Reservation Error: Cannot use '" + idToken.lexeme + "' as a variable name.");
+                }
+        
+        Node value = expression();
+        consume(TokenType.RPAREN, "Expect ')' after let binding.");
+        return new LetNode(idToken.lexeme, value);
+    }
 
         // Handle standard operators (+, -, *, /, and, or, not, >, <, =)
         Token op = advance(); // Take the operator
@@ -83,7 +88,7 @@ public class Parser {
     private Token previous() { return tokens.get(current - 1); }
 
     private RuntimeException error(Token token, String message) {
-        System.err.println("[Line " + token.line + "] Error at '" + token.lexeme + "': " + message);
-        return new RuntimeException();
+        // Return a RuntimeException with the full formatted string for App to print
+        return new RuntimeException("[Line " + token.line + "] " + message);
     }
 }

@@ -1,27 +1,17 @@
 package com.fatima;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * AST Node hierarchy for Variant 5: Prefix Expression Workbench.
- * Includes Pretty Print logic for Milestone 3/5 demo readiness.
- */
 public abstract class Node {
     public abstract String toString();
-    
-    // This defines the method that App.java is looking for
     public abstract void prettyPrint(String indent, boolean isLast);
 }
 
 class LiteralNode extends Node {
     final Object value;
     LiteralNode(Object value) { this.value = value; }
-
     @Override public String toString() { return String.valueOf(value); }
-
-    @Override
-    public void prettyPrint(String indent, boolean isLast) {
+    @Override public void prettyPrint(String indent, boolean isLast) {
         System.out.println(indent + (isLast ? "└── " : "├── ") + value + " [Literal]");
     }
 }
@@ -29,11 +19,8 @@ class LiteralNode extends Node {
 class IdNode extends Node {
     final String name;
     IdNode(String name) { this.name = name; }
-
     @Override public String toString() { return name; }
-
-    @Override
-    public void prettyPrint(String indent, boolean isLast) {
+    @Override public void prettyPrint(String indent, boolean isLast) {
         System.out.println(indent + (isLast ? "└── " : "├── ") + name + " [Identifier]");
     }
 }
@@ -47,14 +34,12 @@ class ApplicationNode extends Node {
         this.arguments = arguments;
     }
 
-    @Override 
-    public String toString() { 
+    @Override public String toString() { 
         String args = arguments.stream().map(Node::toString).collect(Collectors.joining(" "));
         return "(" + operator + " " + args + ")"; 
     }
 
-    @Override
-    public void prettyPrint(String indent, boolean isLast) {
+    @Override public void prettyPrint(String indent, boolean isLast) {
         System.out.println(indent + (isLast ? "└── " : "├── ") + operator + " [Operation]");
         String newIndent = indent + (isLast ? "    " : "│   ");
         for (int i = 0; i < arguments.size(); i++) {
@@ -72,11 +57,9 @@ class LetNode extends Node {
         this.value = value;
     }
 
-    @Override 
-    public String toString() { return "(let " + id + " " + value.toString() + ")"; }
+    @Override public String toString() { return "(let " + id + " " + value.toString() + ")"; }
 
-    @Override
-    public void prettyPrint(String indent, boolean isLast) {
+    @Override public void prettyPrint(String indent, boolean isLast) {
         System.out.println(indent + (isLast ? "└── " : "├── ") + "let (" + id + ") [Binding]");
         value.prettyPrint(indent + (isLast ? "    " : "│   "), true);
     }
