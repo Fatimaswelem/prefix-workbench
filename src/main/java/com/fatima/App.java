@@ -10,6 +10,7 @@ public class App {
         System.out.println("=== PREFIX EXPRESSION WORKBENCH DEMO ===");
 
         // --- PART 1: AUTOMATED BATCH TESTS ---
+        
         runDemo("Variadic Arguments Test", "(+ 10 20 30 40)");
         runDemo("Nested Expression Test", "(* (+ 1 2) (- 10 5))");
         runDemo("Variable Binding Test", "(let x 50) (* x 2)");
@@ -17,7 +18,7 @@ public class App {
         runDemo("Malformed Input Test", "(+ 5 (* 2 3)"); 
         runDemo("Invalid Character Test", "(let price $100)"); 
 
-        // --- NEW COMPLICATED & LONG TESTS ---
+        // --- COMPLICATED & LONG TESTS ---
         runDemo("Very Long Variadic Addition", "(+ 10 20 30 40 50 60 70 80 90 100)");
         runDemo("Deeply Nested Expression", "(+ 1 (+ 2 (+ 3 (+ 4 (+ 5 (+ 6 (+ 7 (+ 8 9)))))))))");
         runDemo("Complex Mixed Logic", "(and true (> (* 2 5) (+ 3 4)))");
@@ -27,11 +28,12 @@ public class App {
         runDemo("Keyword Reservation Test", "(let and 10)");
         runDemo("Keyword Reservation Test 2", "(let let 10)");
         runDemo("Overflow Error Test", "(+ 999999999999 1)");
+        
 
         // --- PART 2: INTERACTIVE REPL MODE ---
         startREPL();
     }
-
+    // Read-Evaluate-Print Loop start 
     private static void startREPL() {
         java.util.Scanner console = new java.util.Scanner(System.in);
         System.out.println("\n" + "=".repeat(UI_WIDTH));
