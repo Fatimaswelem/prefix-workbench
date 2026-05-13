@@ -33,27 +33,45 @@ public class Parser {
         throw error(peek(), "Expected expression.");
     }
 
-    private Node list() {
+private Node list() {
+        // 1. Handle variable bindings (let)
         if (match(TokenType.LET)) {
-                Token idToken = advance(); // Get next token for validation
-                if (idToken.type != TokenType.IDENTIFIER) {
-                    // Updated for specific Keyword Reservation error message
-                    throw error(idToken, "Keyword Reservation Error: Cannot use '" + idToken.lexeme + "' as a variable name.");
-                }
-        
-        Node value = expression();
-        consume(TokenType.RPAREN, "Expect ')' after let binding.");
-        return new LetNode(idToken.lexeme, value);
-    }
+            Token idToken = advance(); // Get the potential variable name
+            
+            // Expert Feature: Keyword Reservation Check
+            if (idToken.type != TokenType.IDENTIFIER) {
+                throw error(idToken, "Keyword Reservation Error: Cannot use '" + idToken.lexeme + "' as a variable name.");
+            }
+            
+            Node value = expression();
+            consume(TokenType.RPAREN, "Expect ')' after let binding.");
+            return new LetNode(idToken.lexeme, value);
+        }
 
+        // 2. Handle standard operators
+        Token op = advance(); // Take the operator (e.g., +, -, and)
+
+        // Ensure the first token after '(' is actually a valid operator
         // Handle standard operators (+, -, *, /, and, or, not, >, <, =)
-        Token op = advance(); // Take the operator
+        boolean isValidOperator = op.type == TokenType.PLUS   || op.type == TokenType.MINUS ||
+                                  op.type == TokenType.STAR   || op.type == TokenType.SLASH ||
+                                  op.type == TokenType.GREATER|| op.type == TokenType.LESS  ||
+                                  op.type == TokenType.EQUAL  || op.type == TokenType.AND   ||
+                                  op.type == TokenType.OR     || op.type == TokenType.NOT;
+
+        if (!isValidOperator) {
+            throw error(op, "Expected an operator after '(', but found '" + op.lexeme + "'.");
+        }
+
+        // 3. Parse the arguments
         List<Node> args = new ArrayList<>();
         while (!check(TokenType.RPAREN) && !isAtEnd()) {
             args.add(expression());
         }
 
         consume(TokenType.RPAREN, "Expect ')' after arguments.");
+        
+        // Now 'args' is correctly recognized here
         return new ApplicationNode(op.lexeme, args);
     }
 
