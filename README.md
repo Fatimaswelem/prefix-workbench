@@ -20,7 +20,7 @@ A Java program that reads, understands, and visually maps out math and logic exp
 
 The program understands expressions based on these specific rules:
 
-BNF:
+'''BNF:
 
 Program    -> StmtSeq
 
@@ -36,28 +36,28 @@ Form       -> OPERATOR ArgList | 'let' IDENTIFIER Expression
 
 ArgList    -> Expression ArgList | ε
 
-OPERATOR   -> '+' | '-' | '*' | '/' | 'and' | 'or' | 'not'|'>' | '<' | '='
+OPERATOR   -> '+' | '-' | '*' | '/' | 'and' | 'or' | 'not'|'>' | '<' | '=' '''
 
 
 
 ## How to Run the Program
 
 
-Method 1: Using a Code Editor (Easiest)
+* **Method 1:** Using a Code Editor (Easiest)
 
 Open the project folder in your preferred Java editor (like IntelliJ IDEA or VS Code), open the com/fatima/App.java file, and click Run.
 
 
-Method 2: Using the Command Line
+* **Method 2:** Using the Command Line
 
 Open your terminal or command prompt, go to the main project folder, and enter these commands:
 
-Compile the code:
-* Mac/Linux: javac com/fatima/*.java
-* Windows: javac com\fatima\*.java
+**Compile the code:
+*** Mac/Linux: javac com/fatima/*.java
+*** Windows: javac com\fatima\*.java
 
-Run the application:
-* java com.fatima.App
+**Run the application:
+*** java com.fatima.App
 
 Note: When the program starts, it will quickly run a few automatic tests to prove it works. After that, it will give you a prefix > prompt so you can test your own expressions. Type exit to close the program.
 
