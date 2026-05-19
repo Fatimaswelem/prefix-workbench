@@ -20,9 +20,10 @@ A Java program that reads, understands, and visually maps out math and logic exp
 
 The program understands expressions based on these specific rules:
 
-``` BNF:
+BNF:
 
-_Program    -> StmtSeq
+```
+Program    -> StmtSeq
 
 StmtSeq    -> Expression StmtSeq | ε
 
@@ -36,7 +37,7 @@ Form       -> OPERATOR ArgList | 'let' IDENTIFIER Expression
 
 ArgList    -> Expression ArgList | ε
 
-OPERATOR   -> '+' | '-' | '*' | '/' | 'and' | 'or' | 'not'|'>' | '<' | '='_
+OPERATOR   -> '+' | '-' | '*' | '/' | 'and' | 'or' | 'not'|'>' | '<' | '='
 
 ```
 
