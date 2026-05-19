@@ -23,12 +23,19 @@ The program understands expressions based on these specific rules:
 BNF:
 
 Program    -> StmtSeq
+
 StmtSeq    -> Expression StmtSeq | ε
+
 Expression -> Atom | List
+
 Atom       -> NUMBER | IDENTIFIER | BOOLEAN
+
 List       -> '(' Form ')'
+
 Form       -> OPERATOR ArgList | 'let' IDENTIFIER Expression
+
 ArgList    -> Expression ArgList | ε
+
 OPERATOR   -> '+' | '-' | '*' | '/' | 'and' | 'or' | 'not'|'>' | '<' | '='
 
 
@@ -46,26 +53,26 @@ Method 2: Using the Command Line
 Open your terminal or command prompt, go to the main project folder, and enter these commands:
 
 Compile the code:
-* ** Mac/Linux: javac com/fatima/*.java
-* ** Windows: javac com\fatima\*.java
+* Mac/Linux: javac com/fatima/*.java
+* Windows: javac com\fatima\*.java
 
 Run the application:
-* ** java com.fatima.App
+* java com.fatima.App
 
 Note: When the program starts, it will quickly run a few automatic tests to prove it works. After that, it will give you a prefix > prompt so you can test your own expressions. Type exit to close the program.
 
 
 ## Project Files Overview
 
-* ** App.java: The main file that starts the program, runs the tests, and handles the interactive prompt.
+* App.java: The main file that starts the program, runs the tests, and handles the interactive prompt.
 
-* ** Scanner.java: The reader that looks at the text and identifies words, numbers, and symbols.
+* Scanner.java: The reader that looks at the text and identifies words, numbers, and symbols.
 
-* ** Parser.java: The builder that enforces the grammar rules and organizes the symbols into a tree structure.
+* Parser.java: The builder that enforces the grammar rules and organizes the symbols into a tree structure.
 
-* ** Node.java: The file that defines how the different parts of the visual tree are drawn on the screen.
+* Node.java: The file that defines how the different parts of the visual tree are drawn on the screen.
 
-* ** Token.java & TokenType.java: Simple files that define the vocabulary the program is allowed to use.
+* Token.java & TokenType.java: Simple files that define the vocabulary the program is allowed to use.
 
 
 ## Documentation
